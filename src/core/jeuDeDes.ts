@@ -58,7 +58,7 @@ export class JeuDeDes {
         return JSON.stringify(resultat);
     }
 
-    public redemarrerJeu(): void {
+    public redemarrerJeu() {
         if (this._joueurs.size == 0) {
             throw new NotFoundError(`Il n'y a aucun joueur.`);
         }

@@ -23,7 +23,7 @@ beforeAll(async ()=> {
 
 describe('GET /api/v1/jeu/redemarrerJeu', () => {
   it(`devrait redémarrer le jeu avec succès`, async () => {
-      const response = await request.get('/api/v1/jeu/redemarrerJeu/');
+      const response = await request.get('/api/v1/jeu/redemarrerJeu');
       expect(response.status).toBe(200);
       expect(response.type).toBe("application/json");
   });
@@ -33,5 +33,10 @@ describe('GET /api/v1/jeu/redemarrerJeu', () => {
     const joueursArray = JSON.parse(joueursJSON);
     expect(joueursArray.length).toBe(0);
   });
-    
+
+  it("devrait retourner 404 quand on essaie de jouer après un redémarrage", async () => {
+    await request.get('/api/v1/jeu/redemarrerJeu');
+    const response = await request.get(`/api/v1/jeu/jouer/${testNom1}`);
+    expect(response.status).toBe(404);
+  });
 });
